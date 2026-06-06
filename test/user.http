@@ -1,0 +1,24 @@
+@base_url = localhost:8888
+@first_name = Reza
+@last_name = Fauzan Adhima
+@email = reza.fauzan.adhima.04@gmail.com
+@address = Jakarta, Indonesia
+@phone = +6285183356072
+@password = test1111
+@confirm_password = test1111
+
+
+POST /users HTTP/1.1
+Host: {{base_url}}
+Content-Type: application/json
+
+{
+    "first_name": "{{first_name}}",
+    "last_name": "{{last_name}}",
+    "email": "{{email}}",
+    "address": "{{address}}",
+    "phone": "{{phone}}",
+    "password": "{{password}}",
+    "confirm_password": "{{confirm_password}}"
+}
+
