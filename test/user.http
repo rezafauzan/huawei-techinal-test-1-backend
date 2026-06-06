@@ -41,7 +41,7 @@ GET /users HTTP/1.1
 Host: {{base_url}}
 
 ### Update User
-PUT /users/1 HTTP/1.1
+PATCH /users/1 HTTP/1.1
 Host: {{base_url}}
 Content-Type: application/json
 
@@ -54,7 +54,7 @@ Content-Type: application/json
 }
 
 ### Test Case: Update Invalid Email
-PUT /users/1 HTTP/1.1
+PATCH /users/1 HTTP/1.1
 Host: {{base_url}}
 Content-Type: application/json
 

@@ -49,7 +49,7 @@ export async function getAllUsers(request, response) {
  * @param {import("express").Request} request 
  * @param {import("express").Response} response 
  */
-export async function createUsers(request, response) {
+export async function createUser(request, response) {
     const {
         first_name,
         last_name,
@@ -135,7 +135,7 @@ export async function createUsers(request, response) {
             password
         }
 
-        const registeredUser = await userModel.createUsers(newUser)
+        const registeredUser = await userModel.createUser(newUser)
 
         const createUserResponseDTO = {
             id: registeredUser.id,

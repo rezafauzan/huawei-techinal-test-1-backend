@@ -4,7 +4,7 @@ function getAllUsers(){
     return users
 }
 
-function createUsers(user){
+function createUser(user){
     user.id = users.length
     users.push(user)
     return user
@@ -17,12 +17,13 @@ function deleteUser(id){
     return deletedUser
 }
 
-function updateUsers(newUserData){
+function updateUser(newUserData){
     const user = users.find(user, index => user.id === parseInt(newUserData.id))
+    console.log(user)
     if(!user){
         return null
     }
     users[user.id] = newUserData
 }
 
-export {getAllUsers, createUsers, deleteUser, updateUsers}
+export {getAllUsers, createUser, deleteUser, updateUser}
