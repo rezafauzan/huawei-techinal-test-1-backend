@@ -42,6 +42,8 @@ export async function createUsers(request, response) {
     } = request.body
 
     if (first_name === undefined || first_name.length < 4) {
+        logger.warning("API", "Create user failed : Invalid first_name")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : First Name minimum 4 characters"
@@ -49,6 +51,8 @@ export async function createUsers(request, response) {
     }
 
     if (last_name === undefined || last_name.length < 4) {
+        logger.warning("API", "Create user failed : Invalid last_name")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Last Name minimum 4 characters"
@@ -56,6 +60,8 @@ export async function createUsers(request, response) {
     }
 
     if (phone === undefined || phone.length < 10) {
+        logger.warning("API", "Create user failed : Invalid phone")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Phone Number minimum 10 digits"
@@ -63,6 +69,8 @@ export async function createUsers(request, response) {
     }
 
     if (address === undefined || address.length < 10) {
+        logger.warning("API", "Create user failed : Invalid address")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Address minimum 10 characters"
@@ -70,6 +78,8 @@ export async function createUsers(request, response) {
     }
 
     if (email === undefined || !email.includes("@")) {
+        logger.warning("API", `Create user failed : Invalid email (${email})`)
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Invalid email"
@@ -77,6 +87,8 @@ export async function createUsers(request, response) {
     }
 
     if (password === undefined || password.length < 8) {
+        logger.warning("API", "Create user failed : Weak password")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Password too weak! minimum 8 characters"
@@ -84,6 +96,8 @@ export async function createUsers(request, response) {
     }
 
     if (confirm_password !== password) {
+        logger.warning("API", "Create user failed : Password mismatch")
+
         return httpResponse.badRequest(
             response,
             "Create user failed : Confirm password not match"
@@ -99,7 +113,10 @@ export async function createUsers(request, response) {
             email,
             password
         }
-        userModel.createUsers(newUser)
+
+        const registeredUser = await userModel.createUsers(newUser)
+
+        logger.api(`Create user success : ${email}`)
 
         return httpResponse.created(
             response,
@@ -108,9 +125,11 @@ export async function createUsers(request, response) {
         )
 
     } catch (error) {
+        logger.error("API",`Create user failed : ${error.message}`)
+
         return httpResponse.serverError(
             response,
-            "Create users fail! " + error
+            "Create user failed"
         )
     }
 }
