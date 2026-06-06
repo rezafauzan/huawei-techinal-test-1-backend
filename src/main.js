@@ -4,6 +4,7 @@ import { corsMiddleware } from "./middleware/cors.middleware.js"
 import { logMiddleware } from "./middleware/log.middleware.js"
 import { logger } from "./lib/logger.js"
 import { httpResponse } from "./lib/http_handlers.js"
+import userRouter from "./routes/users.router.js"
 
 const app = express()
 app.use(corsMiddleware)
@@ -23,6 +24,8 @@ app.use(express.json())
 app.get("/", logMiddleware, function (request, response) {
     httpResponse.ok(response, "Backend is running well", [])
 })
+
+app.use("/users", userRouter)
 
 app.listen(port, function () {
     logger.system(`Server started on port ${port}`)
