@@ -161,3 +161,43 @@ export async function createUsers(request, response) {
         )
     }
 }
+
+/**
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
+ */
+export async function deleteUser(request, response) {
+    const { id } = request.params
+
+    logger.api("request params : " + JSON.stringify(request.params))
+
+    if (id === undefined) {
+        logger.warning("API", "Delete user failed : Invalid id")
+
+        return httpResponse.badRequest(
+            response,
+            "Delete user failed : Invalid id"
+        )
+    }
+
+    try {
+        const deletedUser = await userModel.deleteUser(id)
+
+        logger.api(`Delete user success : ${JSON.stringify(deletedUser)}`)
+
+        return httpResponse.ok(
+            response,
+            "Delete user success!",
+            deletedUser
+        )
+
+    } catch (error) {
+        logger.error("API", `Delete user failed : ${error.message}`)
+
+        return httpResponse.serverError(
+            response,
+            "Delete user failed"
+        )
+    }
+}
