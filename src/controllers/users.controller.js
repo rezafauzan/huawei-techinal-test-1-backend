@@ -10,11 +10,28 @@ import * as userModel from "../models/user.model.js"
 export async function getAllUsers(request, response) {
     try {
         const users = await userModel.getAllUsers()
+
+        const getUserDTO = []
+
+        users.forEach(user => {
+            const filteredData = {
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email,
+                address: user.address,
+                phone: user.phone
+            }
+
+            getUserDTO.push(filteredData)
+        }
+        )
+
+
         logger.api("Get all users data")
         return httpResponse.ok(
             response,
             "Get all users data",
-            users
+            getUserDTO
         )
     } catch (error) {
         logger.error("API", "Failed get all users data " + error)
@@ -40,7 +57,7 @@ export async function createUsers(request, response) {
         password,
         confirm_password
     } = request.body
-    
+
     logger.api("request body : " + JSON.stringify(request.body))
 
     if (first_name === undefined || first_name.length < 4) {
