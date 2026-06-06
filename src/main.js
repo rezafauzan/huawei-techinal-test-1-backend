@@ -1,9 +1,12 @@
 import express from "express"
 import {constants} from "node:http2"
+import { corsMiddleware } from "./middleware/cors.middleware.js"
 
 const app = express()
+app.use(corsMiddleware)
 const port = process.env.PORT || 8888
 
+app.use(express.json())
 /**
  * @openapi
  * /:
