@@ -5,6 +5,7 @@ import { logMiddleware } from "./middleware/log.middleware.js"
 import { logger } from "./lib/logger.js"
 import { httpResponse } from "./lib/http_handlers.js"
 import userRouter from "./routes/users.router.js"
+import docsRouter from "./routes/docs.router.js"
 
 const app = express()
 app.use(corsMiddleware)
@@ -26,6 +27,8 @@ app.get("/", logMiddleware, function (request, response) {
 })
 
 app.use("/users", userRouter)
+
+app.use("/docs", docsRouter)
 
 app.listen(port, function () {
     logger.system(`Server started on port ${port}`)
