@@ -184,12 +184,22 @@ export async function deleteUser(request, response) {
     try {
         const deletedUser = await userModel.deleteUser(id)
 
-        logger.api(`Delete user success : ${JSON.stringify(deletedUser)}`)
+        const deleteUserResponseDTO = {
+            first_name: deletedUser.first_name,
+            last_name: deletedUser.last_name,
+            email: deletedUser.email,
+            address: deletedUser.address,
+            phone: deletedUser.phone
+        }
+
+        logger.api(
+            `Delete user success : ${JSON.stringify(deleteUserResponseDTO)}`
+        )
 
         return httpResponse.ok(
             response,
             "Delete user success!",
-            deletedUser
+            deleteUserResponseDTO
         )
 
     } catch (error) {
@@ -198,6 +208,28 @@ export async function deleteUser(request, response) {
         return httpResponse.serverError(
             response,
             "Delete user failed"
+        )
+    }
+}
+
+/**
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
+ */
+export async function updateUser(request, response) {
+    try {
+        const user = await userModel.updateUser(request.params.id, request.body)
+
+        return httpResponse.ok(
+            response,
+            "Update user success!",
+            user
+        )
+    } catch (error) {
+        return httpResponse.serverError(
+            response,
+            "Update user fail! " + error
         )
     }
 }
