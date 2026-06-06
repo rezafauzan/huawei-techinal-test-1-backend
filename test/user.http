@@ -7,7 +7,6 @@
 @password = test1111
 @confirm_password = test1111
 
-
 POST /users HTTP/1.1
 Host: {{base_url}}
 Content-Type: application/json
@@ -39,4 +38,38 @@ Content-Type: application/json
 
 ###
 GET /users HTTP/1.1
+Host: {{base_url}}
+
+### Update User
+PUT /users/1 HTTP/1.1
+Host: {{base_url}}
+Content-Type: application/json
+
+{
+    "first_name": "Reza Update",
+    "last_name": "Fauzan Update",
+    "email": "reza.update@gmail.com",
+    "address": "Bandung, Indonesia",
+    "phone": "+6281234567890"
+}
+
+### Test Case: Update Invalid Email
+PUT /users/1 HTTP/1.1
+Host: {{base_url}}
+Content-Type: application/json
+
+{
+    "first_name": "Reza Update",
+    "last_name": "Fauzan Update",
+    "email": "invalid-email",
+    "address": "Bandung, Indonesia",
+    "phone": "+6281234567890"
+}
+
+### Delete User
+DELETE /users/1 HTTP/1.1
+Host: {{base_url}}
+
+### Test Case: Delete User With Invalid ID
+DELETE /users/999999 HTTP/1.1
 Host: {{base_url}}
