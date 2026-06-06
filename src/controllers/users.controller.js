@@ -16,6 +16,7 @@ export async function getAllUsers(request, response) {
         users.forEach(
             user => {
                 const filteredData = {
+                    id: users.id,
                     first_name: user.first_name,
                     last_name: user.last_name,
                     email: user.email,
@@ -137,6 +138,7 @@ export async function createUsers(request, response) {
         const registeredUser = await userModel.createUsers(newUser)
 
         const createUserResponseDTO = {
+            id: registeredUser.id,
             first_name: registeredUser.first_name,
             last_name: registeredUser.last_name,
             email: registeredUser.email,
@@ -185,6 +187,7 @@ export async function deleteUser(request, response) {
         const deletedUser = await userModel.deleteUser(id)
 
         const deleteUserResponseDTO = {
+            id: deletedUser.id,
             first_name: deletedUser.first_name,
             last_name: deletedUser.last_name,
             email: deletedUser.email,
@@ -295,6 +298,7 @@ export async function updateUser(request, response) {
         })
 
         const updateUserResponseDTO = {
+            id: updatedUser.id,
             first_name: updatedUser.first_name,
             last_name: updatedUser.last_name,
             email: updatedUser.email,
