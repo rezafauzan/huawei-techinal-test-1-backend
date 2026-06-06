@@ -1,6 +1,7 @@
 import express from "express"
-import {constants} from "node:http2"
+import { constants } from "node:http2"
 import { corsMiddleware } from "./middleware/cors.middleware.js"
+import { writeLog } from "./lib/logger.js"
 
 const app = express()
 app.use(corsMiddleware)
@@ -17,8 +18,11 @@ app.use(express.json())
  *          200:
  *              description: Returning JSON with success and message
  */
-app.get("/", function(request, respond){
-    console.log("OK")
+app.get("/", function (request, respond) {
+    writeLog(
+        `[${request.method}] ${request.originalUrl} - IP: ${request.ip}`
+    )
+
     respond.status(constants.HTTP_STATUS_OK).json({
         success: true,
         message: "Backend is running well",
@@ -26,6 +30,6 @@ app.get("/", function(request, respond){
     })
 })
 
-app.listen(port, function(){
+app.listen(port, function () {
     console.log(`App listening on port ${port}`)
 })
