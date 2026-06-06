@@ -218,18 +218,106 @@ export async function deleteUser(request, response) {
  * @param {import("express").Response} response 
  */
 export async function updateUser(request, response) {
+    const { id } = request.params
+
+    const {
+        first_name,
+        last_name,
+        address,
+        phone,
+        email
+    } = request.body
+
+    logger.api("request params : " + JSON.stringify(request.params))
+    logger.api("request body : " + JSON.stringify(request.body))
+
+    if (id === undefined) {
+        logger.warning("API", "Update user failed : Invalid id")
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : Invalid id"
+        )
+    }
+
+    if (first_name === undefined || first_name.length < 4) {
+        logger.warning("API", "Update user failed : Invalid first_name")
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : First Name minimum 4 characters"
+        )
+    }
+
+    if (last_name === undefined || last_name.length < 4) {
+        logger.warning("API", "Update user failed : Invalid last_name")
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : Last Name minimum 4 characters"
+        )
+    }
+
+    if (phone === undefined || phone.length < 10) {
+        logger.warning("API", "Update user failed : Invalid phone")
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : Phone Number minimum 10 digits"
+        )
+    }
+
+    if (address === undefined || address.length < 10) {
+        logger.warning("API", "Update user failed : Invalid address")
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : Address minimum 10 characters"
+        )
+    }
+
+    if (email === undefined || !email.includes("@")) {
+        logger.warning("API", `Update user failed : Invalid email (${email})`)
+
+        return httpResponse.badRequest(
+            response,
+            "Update user failed : Invalid email"
+        )
+    }
+
     try {
-        const user = await userModel.updateUser(request.params.id, request.body)
+        const updatedUser = await userModel.updateUser(id, {
+            first_name,
+            last_name,
+            address,
+            phone,
+            email
+        })
+
+        const updateUserResponseDTO = {
+            first_name: updatedUser.first_name,
+            last_name: updatedUser.last_name,
+            email: updatedUser.email,
+            address: updatedUser.address,
+            phone: updatedUser.phone
+        }
+
+        logger.api(
+            `Update user success : ${JSON.stringify(updateUserResponseDTO)}`
+        )
 
         return httpResponse.ok(
             response,
             "Update user success!",
-            user
+            updateUserResponseDTO
         )
+
     } catch (error) {
+        logger.error("API", `Update user failed : ${error.message}`)
+
         return httpResponse.serverError(
             response,
-            "Update user fail! " + error
+            "Update user failed"
         )
     }
 }
