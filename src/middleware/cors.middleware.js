@@ -1,9 +1,10 @@
 export const corsMiddleware = (request, response, next) => {
+    let allowedOrigins
     
-    if(process.env.APP_ENV == 'development'){
-        const allowedOrigins = '*'
-    }else{
-        const allowedOrigins = process.env.FRONTEND_URL
+    if (process.env.APP_ENV == 'development') {
+        allowedOrigins = '*'
+    } else {
+        allowedOrigins = process.env.FRONTEND_URL
     }
 
     const origin = request.headers.origin
