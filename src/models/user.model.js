@@ -5,6 +5,7 @@ export function getAllUsers(){
 }
 
 export function createUsers(user){
+    user.id = users.length
     users.push(user)
     return user
 }
