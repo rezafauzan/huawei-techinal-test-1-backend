@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, appendFile } from "fs"
 import { join } from "path"
 
-export function writeLog(category, level, message) {
+function writeLog(category, level, message) {
     const now = new Date()
 
     const today = now.toLocaleDateString("sv-SE", {
