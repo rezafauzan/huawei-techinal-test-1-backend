@@ -11,19 +11,20 @@ export async function getAllUsers(request, response) {
     try {
         const users = await userModel.getAllUsers()
 
-        const getUserDTO = []
+        const getUserResponseDTO = []
 
-        users.forEach(user => {
-            const filteredData = {
-                first_name: user.first_name,
-                last_name: user.last_name,
-                email: user.email,
-                address: user.address,
-                phone: user.phone
+        users.forEach(
+            user => {
+                const filteredData = {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    email: user.email,
+                    address: user.address,
+                    phone: user.phone
+                }
+
+                getUserResponseDTO.push(filteredData)
             }
-
-            getUserDTO.push(filteredData)
-        }
         )
 
 
@@ -31,7 +32,7 @@ export async function getAllUsers(request, response) {
         return httpResponse.ok(
             response,
             "Get all users data",
-            getUserDTO
+            getUserResponseDTO
         )
     } catch (error) {
         logger.error("API", "Failed get all users data " + error)
@@ -135,12 +136,20 @@ export async function createUsers(request, response) {
 
         const registeredUser = await userModel.createUsers(newUser)
 
-        logger.api(`Create user success : ${email}`)
+        const createUserResponseDTO = {
+            first_name: registeredUser.first_name,
+            last_name: registeredUser.last_name,
+            email: registeredUser.email,
+            address: registeredUser.address,
+            phone: registeredUser.phone
+        }
+
+        logger.api(`Create user success : ${createUserResponseDTO}`)
 
         return httpResponse.created(
             response,
             "Create user success!",
-            registeredUser
+            createUserResponseDTO
         )
 
     } catch (error) {
