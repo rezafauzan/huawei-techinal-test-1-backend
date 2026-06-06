@@ -24,9 +24,11 @@ function writeLog(category, level, message) {
 
     const logText =
         `[${timestamp}] [${level}] [${category}] ${message}\n`
+        
     if(process.env.DEBUG){
         console.log(logText)
     }
+
     appendFile(logFile, logText, (err) => {
         if (err) {
             console.error("Gagal menulis log:", err)

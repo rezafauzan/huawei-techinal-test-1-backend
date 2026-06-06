@@ -2,6 +2,7 @@ import express from "express"
 import { constants } from "node:http2"
 import { corsMiddleware } from "./middleware/cors.middleware.js"
 import { logMiddleware } from "./middleware/log.middleware.js"
+import { logger } from "./lib/logger.js"
 
 const app = express()
 app.use(corsMiddleware)
@@ -27,5 +28,5 @@ app.get("/", logMiddleware, function (request, response) {
 })
 
 app.listen(port, function () {
-    console.log(`App listening on port ${port}`)
+    logger.system(`Server started on port ${port}`)
 })
