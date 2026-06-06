@@ -22,3 +22,17 @@ Content-Type: application/json
     "confirm_password": "{{confirm_password}}"
 }
 
+### Test case: Create user with missing first name length less then 4
+POST /users HTTP/1.1
+Host: {{base_url}}
+Content-Type: application/json
+
+{
+    "first_name": "Eza",
+    "last_name": "{{last_name}}",
+    "email": "{{email}}",
+    "address": "{{address}}",
+    "phone": "{{phone}}",
+    "password": "{{password}}",
+    "confirm_password": "{{confirm_password}}"
+}
