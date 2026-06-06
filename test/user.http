@@ -36,3 +36,7 @@ Content-Type: application/json
     "password": "{{password}}",
     "confirm_password": "{{confirm_password}}"
 }
+
+###
+GET /users HTTP/1.1
+Host: {{base_url}}
