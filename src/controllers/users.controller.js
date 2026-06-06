@@ -3,17 +3,9 @@ import { logger } from "../lib/logger.js"
 import * as userModel from "../models/user.model.js"
 
 /**
- * @openapi
- * /users:
- *   get:
- *     summary: Get all users
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: Get all users data
- *       500:
- *         description: Failed get all users data
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
  */
 export async function getAllUsers(request, response) {
     try {
@@ -53,55 +45,9 @@ export async function getAllUsers(request, response) {
 }
 
 /**
- * @openapi
- * /users:
- *   post:
- *     summary: Create new user
- *     tags:
- *       - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - first_name
- *               - last_name
- *               - address
- *               - phone
- *               - email
- *               - password
- *               - confirm_password
- *             properties:
- *               first_name:
- *                 type: string
- *                 example: Reza
- *               last_name:
- *                 type: string
- *                 example: Fauzan
- *               address:
- *                 type: string
- *                 example: Jakarta Selatan
- *               phone:
- *                 type: string
- *                 example: "081234567890"
- *               email:
- *                 type: string
- *                 example: reza@example.com
- *               password:
- *                 type: string
- *                 example: password123
- *               confirm_password:
- *                 type: string
- *                 example: password123
- *     responses:
- *       201:
- *         description: Create user success
- *       400:
- *         description: Invalid request body
- *       500:
- *         description: Create user failed
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
  */
 export async function createUser(request, response) {
     const {
@@ -219,26 +165,9 @@ export async function createUser(request, response) {
 }
 
 /**
- * @openapi
- * /users/{id}:
- *   delete:
- *     summary: Delete user by ID
- *     tags:
- *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *     responses:
- *       200:
- *         description: Delete user success
- *       400:
- *         description: Invalid id
- *       500:
- *         description: Delete user failed
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
  */
 export async function deleteUser(request, response) {
     const { id } = request.params
@@ -287,54 +216,9 @@ export async function deleteUser(request, response) {
 }
 
 /**
- * @openapi
- * /users/{id}:
- *   put:
- *     summary: Update user by ID
- *     tags:
- *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - first_name
- *               - last_name
- *               - address
- *               - phone
- *               - email
- *             properties:
- *               first_name:
- *                 type: string
- *                 example: Reza
- *               last_name:
- *                 type: string
- *                 example: Fauzan
- *               address:
- *                 type: string
- *                 example: Jakarta Selatan
- *               phone:
- *                 type: string
- *                 example: "081234567890"
- *               email:
- *                 type: string
- *                 example: reza@example.com
- *     responses:
- *       200:
- *         description: Update user success
- *       400:
- *         description: Invalid request body or id
- *       500:
- *         description: Update user failed
+ * 
+ * @param {import("express").Request} request 
+ * @param {import("express").Response} response 
  */
 export async function updateUser(request, response) {
     const { id } = request.params
