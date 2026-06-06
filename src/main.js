@@ -1,7 +1,7 @@
 import express from "express"
 import { constants } from "node:http2"
 import { corsMiddleware } from "./middleware/cors.middleware.js"
-import { writeLog } from "./lib/logger.js"
+import { logger } from "./lib/logger.js"
 
 const app = express()
 app.use(corsMiddleware)
@@ -19,7 +19,7 @@ app.use(express.json())
  *              description: Returning JSON with success and message
  */
 app.get("/", function (request, respond) {
-    writeLog(
+    logger.system(
         `[${request.method}] ${request.originalUrl} - IP: ${request.ip}`
     )
 
