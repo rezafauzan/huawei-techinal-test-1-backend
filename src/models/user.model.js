@@ -1,29 +1,42 @@
 import { users } from "../../storage/data.js"
 
-function getAllUsers(){
+function getAllUsers() {
     return users
 }
 
-function createUser(user){
+function createUser(user) {
     user.id = users.length
     users.push(user)
     return user
 }
 
-function deleteUser(id){
-    const index = users.findIndex(user, index => user.id === parseInt(id))
-    const deletedUser = users[index]
-    users.splice(index, 1)
-    return deletedUser
-}
+function deleteUser(id) {
+    const index = users.findIndex(
+        user => user.id === Number(id)
+    )
 
-function updateUser(newUserData){
-    const user = users.find(user, index => user.id === parseInt(newUserData.id))
-    console.log(user)
-    if(!user){
-        return null
+    if (index === -1) {
+        throw new Error("user not found")
     }
-    users[user.id] = newUserData
+
+    return users.splice(index, 1)[0]
 }
 
-export {getAllUsers, createUser, deleteUser, updateUser}
+function updateUser(id, newUserData) {
+    const userIndex = users.findIndex(
+        user => user.id === parseInt(id)
+    )
+
+    if (userIndex === -1) {
+        throw new Error("user not found")
+    }
+
+    users[userIndex] = {
+        ...users[userIndex],
+        ...newUserData
+    }
+
+    return users[userIndex]
+}
+
+export { getAllUsers, createUser, deleteUser, updateUser }
