@@ -40,6 +40,8 @@ export async function createUsers(request, response) {
         password,
         confirm_password
     } = request.body
+    
+    logger.api("request body : " + JSON.stringify(request.body))
 
     if (first_name === undefined || first_name.length < 4) {
         logger.warning("API", "Create user failed : Invalid first_name")
@@ -125,7 +127,7 @@ export async function createUsers(request, response) {
         )
 
     } catch (error) {
-        logger.error("API",`Create user failed : ${error.message}`)
+        logger.error("API", `Create user failed : ${error.message}`)
 
         return httpResponse.serverError(
             response,
