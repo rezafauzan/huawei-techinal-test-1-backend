@@ -16,3 +16,11 @@ export function deleteUser(id){
     users.splice(index, 1)
     return deletedUser
 }
+
+export function updateUsers(newUserData){
+    const user = users.find(user, index => user.id === parseInt(newUserData.id))
+    if(!user){
+        return null
+    }
+    users[user.id] = newUserData
+}
